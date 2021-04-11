@@ -1,0 +1,18 @@
+--oComprobar en primer lugar que funciona pasando un empleado existente 
+--oPasar un empleado inexistente y comprobar que genera un error 
+--oCrear una zona de EXCEPTION controlando el NO_DATA_FOUND para que pinte un mensaje como “Empleado inexistente” 
+
+
+DECLARE
+    V_EMPLOYEE_ID EMPLOYEES.EMPLOYEE_ID%TYPE := &ID;
+    V_FIRST_NAME EMPLOYEES.FIRST_NAME%TYPE;
+
+BEGIN
+    SELECT E.FIRST_NAME INTO V_FIRST_NAME FROM EMPLOYEES E WHERE E.EMPLOYEE_ID = V_EMPLOYEE_ID;
+    DBMS_OUTPUT.PUT_LINE('Nombre del empleado es: '||V_FIRST_NAME);
+    
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+    DBMS_OUTPUT.PUT_LINE('Empleado inexistente');
+END;
+/
